@@ -1,0 +1,41 @@
+{% extends './index.html' %}
+
+{% block title %}Login{% endblock title %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock customCSS %}
+
+{% block body %}
+<form class="form-signin w-100 m-auto" action="/login" method="POST">
+  {% with messages = get_flashed_messages() %}
+
+    {% if messages %}
+
+  {% for message in messages %}
+
+  <div class="alert alert-primary alert-dismissible" role="alert">
+    <strong>{{ message }}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+  </div>
+
+  {% endfor %}
+
+  {% endif %}
+
+  {% endwith %}
+  <h1 class="h3 mb-3 fw-normal">Please Log in</h1>
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <div class="form-floating">
+    <input type="text" class="form-control" id="username" name="username" placeholder="Username...">
+    <label for="username">Username</label>
+  </div>
+  <div class="form-floating">
+    <input type="password" class="form-control" name="password" placeholder="Password...">
+    <label for="password">Password</label>
+  </div>
+  <button class="w-100 btn btn-lg btn-primary mt-4" type="submit">Log in</button>
+  <a class="w-100 btn btn-lg btn-secondary mt-1" href="{{ url_for('register') }}" type="button">Sign in</a>
+  <p class="mt-5 mb-3 text-muted">&copy;2022</p>
+</form>
+{% endblock body %}
